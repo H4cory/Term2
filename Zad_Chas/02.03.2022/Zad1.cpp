@@ -95,12 +95,12 @@ int main(){
                      }
                      numberT = 0;
                      break;
-            case '6':cout<<"Inv. Num. : ";cin>>InputINumber;
+            case '6':cout<<"Rem. Inv. Num. : ";cin>>InputINumber;
                     for(int i =0;i<numberB;i++)
                     if(books[i].getINumber()==InputINumber){
-                    for(int j = i; j<numberB;j++)
-                    books[j]=books[j+1];
-                    numberB--;
+                     for(int j = i; j<numberB;j++)
+                     books[j]=books[j+1];
+                     numberB--;
                     }
                      break;
             default: cerr<<"Wrong INPUT!!!"; 
