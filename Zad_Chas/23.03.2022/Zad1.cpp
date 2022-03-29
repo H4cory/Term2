@@ -63,7 +63,6 @@ public:
     string GetName();
 };
 
-
 class exDateName
 {
 private:
@@ -79,8 +78,6 @@ public:
         cout << "Name: " << name << endl;
     }
 };
-
-
 
 void drugs::getData()
 {
