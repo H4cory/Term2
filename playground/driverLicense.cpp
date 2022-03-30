@@ -26,14 +26,73 @@ Sample Output
 Explanation 
 It will take 40 minutes to get your license because you are in the second group 
 of two to be seen by one of the two available agents.
+
+capital letters in ascii: 65-90
 */
 
 #include <iostream>
+#include <string>
 
 using namespace std;
 
-int main(){
+class driversAgency{
+private:
+string yourName;
+string otherNames;
+int agents=0;
+int time=20;
 
+public:
+void getData();
+void calculate();
+void displayData();
+
+
+};
+
+void driversAgency::getData(){
+    cin>>yourName;
+    cin>>agents;cin.ignore();
+    getline(cin,otherNames);
+
+}
+
+void driversAgency::calculate(){
+    char holder = 0;
+    int counter =0;
+
+
+    holder = otherNames[0];
+    if(holder<yourName[0]){
+        counter++;
+    }
+   
+    
+    for(int i =0;otherNames.size()>i;i++){
+        if(otherNames[i]==' '){
+            holder = otherNames[i+1];
+            if(holder<yourName[0]){
+                counter++;
+            }
+        }
+        
+    }
+    while(counter-agents>=0)
+    {
+        time+=20;
+        counter-=agents;
+    }
+}
+
+void driversAgency::displayData(){
+    cout<<time;
+}
+
+int main(){
+driversAgency quee;
+quee.getData();
+quee.calculate();
+quee.displayData();
 
     return 0;
 }
