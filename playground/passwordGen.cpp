@@ -247,12 +247,6 @@ int main()
             }
             namecheck = false;
             break;
-        case '4':
-            /* code */
-            break;
-        case '5':
-            /* code */
-            break;
         case 's':
             check = false;
             break;
