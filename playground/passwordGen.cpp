@@ -12,7 +12,7 @@ class passwords
 {
 private:
     string name = "?Empty?";
-    char password[64];
+    char password[100];
     int passwordLength;
     bool letters = false;
     bool upperCaseLetters = false;
@@ -121,23 +121,25 @@ void passwords::properties()
 
 void passwords::generate()
 {
-    srand(time(0));
-
     for (int i = 0; passwordLength > i;)
     {
-        if (0 + (rand() % 2))
+
+        if ((rand() % 2))
         {
             password[i++] = (48 + (rand() % 10));
         }
-        if (0 + (rand() % 2) && upperCaseLetters)
+
+        if ((rand() % 2) && upperCaseLetters)
         {
             password[i++] = (65 + (rand() % 26));
         }
-        if (0 + (rand() % 2) && specialCharacters)
+
+        if ((rand() % 2) && specialCharacters)
         {
             password[i++] = (33 + (rand() % 15));
         }
-        if (0 + (rand() % 2) && letters)
+
+        if ((rand() % 2) && letters)
         {
             password[i++] = (97 + (rand() % 26));
         }
@@ -168,6 +170,7 @@ bool passwords::checkName(string iName)
 
 int main()
 {
+    srand(time(0));
     passwords accounts[30];
     bool check = true, namecheck = false;
     string input;
