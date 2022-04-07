@@ -8,31 +8,31 @@
 
 using namespace std;
 
-class passwords
+class Password
 {
 private:
     string name = "?Empty?";
     char password[64];
-    int passwordLength;
+    int passwordLength = 0;
     bool letters = false;
     bool upperCaseLetters = false;
     bool specialCharacters = false;
 
 public:
     void getName();
-    void properties();
+    void setProperties();
     void generate();
     void displayData();
     bool checkName(string iName);
 };
 
-void passwords::getName()
+void Password::getName()
 {
     cout << "Please enter name: ";
     getline(cin, name);
 }
 
-void passwords::properties()
+void Password::setProperties()
 {
     string input;
     bool check = true;
@@ -42,8 +42,8 @@ void passwords::properties()
     {
         if (57 > input[0] && input[0] > 47)
         {
-            passwordLength = stoi(input);
-            if (passwordLength < 6)
+            this->passwordLength = stoi(input);
+            if (this->passwordLength < 6)
             {
                 cerr << "Password can't be less thank 6 characters\n->";
                 getline(cin, input);
@@ -65,11 +65,11 @@ void passwords::properties()
         switch (input[0])
         {
         case 'y':
-            letters = true;
+            this->letters = true;
             check = false;
             break;
         case 'n':
-            letters = false;
+            this->letters = false;
             check = false;
             break;
         default:
@@ -85,11 +85,11 @@ void passwords::properties()
         switch (input[0])
         {
         case 'y':
-            upperCaseLetters = true;
+            this->upperCaseLetters = true;
             check = false;
             break;
         case 'n':
-            upperCaseLetters = false;
+            this->upperCaseLetters = false;
             check = false;
             break;
         default:
@@ -105,11 +105,11 @@ void passwords::properties()
         switch (input[0])
         {
         case 'y':
-            specialCharacters = true;
+            this->specialCharacters = true;
             check = false;
             break;
         case 'n':
-            specialCharacters = false;
+            this->specialCharacters = false;
             check = false;
             break;
         default:
@@ -119,46 +119,46 @@ void passwords::properties()
     }
 }
 
-void passwords::generate()
+void Password::generate()
 {
     srand(time(0));
 
-    for (int i = 0; passwordLength > i;)
+    for (int i = 0; passwordLength > i; i++)
     {
         if (0 + (rand() % 2))
         {
-            password[i++] = (48 + (rand() % 10));
+            this->password[i] = (48 + (rand() % 10));
         }
         if (0 + (rand() % 2) && upperCaseLetters)
         {
-            password[i++] = (65 + (rand() % 26));
+            this->password[i] = (65 + (rand() % 26));
         }
         if (0 + (rand() % 2) && specialCharacters)
         {
-            password[i++] = (33 + (rand() % 15));
+            this->password[i] = (33 + (rand() % 15));
         }
         if (0 + (rand() % 2) && letters)
         {
-            password[i++] = (97 + (rand() % 26));
+            this->password[i] = (97 + (rand() % 26));
         }
     }
     cout << "\nYour password is: ";
-    for (int i = 0; passwordLength > i; i++)
-        cout << password[i];
+    for (int i = 0; this->passwordLength > i; i++)
+        cout << this->password[i];
     cout << endl;
 }
-void passwords::displayData()
+void Password::displayData()
 {
-    cout << "\nName    : " << name;
+    cout << "\nName    : " << this->name;
     cout << "\nPassword: ";
-    for (int i = 0; passwordLength > i; i++)
-        cout << password[i];
+    for (int i = 0; this->passwordLength > i; i++)
+        cout << this->password[i];
     cout << endl;
 }
 
-bool passwords::checkName(string iName)
+bool Password::checkName(string iName)
 {
-    if (iName == name)
+    if (iName == this->name)
     {
         return true;
     }
@@ -168,7 +168,7 @@ bool passwords::checkName(string iName)
 
 int main()
 {
-    passwords accounts[30];
+    Password accounts[30];
     bool check = true, namecheck = false;
     string input;
     int accountsNum = 0;
@@ -187,7 +187,7 @@ int main()
         {
         case '1':
             accounts[accountsNum].getName();
-            accounts[accountsNum].properties();
+            accounts[accountsNum].setProperties();
             accounts[accountsNum].generate();
             accountsNum++;
             break;
@@ -216,7 +216,7 @@ int main()
                 if (accounts[i].checkName(input))
                 {
                     namecheck = true;
-                    cout << "Do you want new properties ? (y/n)\n->";
+                    cout << "Do you want new setProperties ? (y/n)\n->";
                     getline(cin, input);
                     bool check2 = true;
                     while (check2)
@@ -224,7 +224,7 @@ int main()
                         switch (input[0])
                         {
                         case 'y':
-                            accounts[i].properties();
+                            accounts[i].setProperties();
                             accounts[i].generate();
                             check2 = false;
                             break;
