@@ -216,7 +216,7 @@ int main()
                 if (accounts[i].checkName(input))
                 {
                     namecheck = true;
-                    cout << "Do you want new setProperties ? (y/n)\n->";
+                    cout << "Do you want new properties ? (y/n)\n->";
                     getline(cin, input);
                     bool check2 = true;
                     while (check2)
