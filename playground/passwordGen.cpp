@@ -123,7 +123,7 @@ void Password::generate()
 {
     srand(time(0));
 
-    for (int i = 0; passwordLength > i; i++)
+    for (int i = 0; i < this->passwordLength; i++)
     {
         if (0 + (rand() % 2))
         {
