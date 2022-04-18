@@ -43,9 +43,9 @@ class Workers{
         }
         void displayData(){
             cout<<"\nName: "<<name<<endl;
-            cout<<"\nEGN: "<<EGN<<endl;
-            cout<<"\nSalary: "<<salary<<endl;
-            cout<<"\nDays worked: "<<wDays<<endl;
+            cout<<"EGN: "<<EGN<<endl;
+            cout<<"Salary: "<<salary<<endl;
+            cout<<"Days worked: "<<wDays<<endl;
         }
         void displayMaleSlary(){
              if( (stoi(EGN.substr(8,1)))%2 == 0&&salary*wDays >=400){
@@ -68,41 +68,40 @@ class Workers{
         string returnName(){
             return name;
         }
-        
-        void getBDate(){
-            int D, M, Y;
-            if((stoi(EGN.substr(2,2)))> 12){
-                M =(stoi(EGN.substr(2,2)))-40;
-                Y = (stoi(EGN.substr(0,2))) +2000;
-            }
-            else {
-            M =(stoi(EGN.substr(2,2)));
-            Y = (stoi(EGN.substr(0,2))) +1900;
-            }
-            D = stoi(EGN.substr(4,2));
-        
+        string returnEGN(){
+            return EGN;
         }
-
-
-
 };
 
 
 
-class nDate{
+class UnderPayedWoman{
     private:
     string name;
     int D,M,Y;
 
     public:
-    nDate(){
-        
+    UnderPayedWoman(){
+        D = 0;
+        M = 0;
+        Y = 0;
     }
+ 
     void getName(string a){
         name = a;
     }
-    
-    friend class Workers;
+    void getBDate(string EGN){
+        if((stoi(EGN.substr(2,2)))> 12){
+                this->M =(stoi(EGN.substr(2,2)))-40;
+                this->Y = (stoi(EGN.substr(0,2))) +2000;
+            }
+            else {
+            this-> M =(stoi(EGN.substr(2,2)));
+            this->Y = (stoi(EGN.substr(0,2))) +1900;
+            }
+            this->D = stoi(EGN.substr(4,2));
+        
+    }
     
     void displayData(){
         cout<<"\nName: "<<name;
@@ -112,15 +111,16 @@ class nDate{
 
 int main(){
     Workers persone[100];
-    nDate women[100];
+    UnderPayedWoman women[100];
     bool check = true;
+    bool check2 = false;
     int numP =0,numW = 0;
     string input;
     
     cout<<"\nPress s to stop\n";
 
     while(check){
-        cout<<"\n<--MENU-->\n";
+        cout<<"\n\n<--MENU-->\n";
         cout<<"1.Add worker\n";
         cout<<"2.Display worker\n";
         cout<<"3.Display name of workers with salary over 400lv\n";
@@ -136,9 +136,19 @@ int main(){
             break;
 
             case '2':
+            cout<<"Name: "; getline(cin,input);
+            
             for(int i =0;i<numP;i++){
+                
+                if(input==persone[i].returnName()){
                 cout<<"\nWorker "<<i+1<<" :\n";
                 persone[i].displayData();
+                check2 = true;
+                }
+            }
+            if(!check2){
+                cout<<"\nNo such workers found!";
+                check2 = false;
             }
 
             break;
@@ -153,10 +163,12 @@ int main(){
              case '4':
              for(int i =0;i<numP;i++){
                 if(persone[i].sortWomen()){
-                    women[numW++].getName(persone[i].returnName());
-                    persone[i].getBDate();
+                    women[numW].getName(persone[i].returnName());
+                    women[numW++].getBDate(persone[i].returnEGN());
                 }
+                
             }
+            cout<<"\nDONE!";
             break;
             
             case '5':
