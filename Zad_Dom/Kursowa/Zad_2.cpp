@@ -144,7 +144,7 @@ int main()
     Plants *plantT[10];
     Plants *plantF[10];
     int plantTnum = 0, plantFnum = 0, flowerNum = 0;
-    array<bool, 10> check;
+    array<bool, 5> check;
     check.fill(true);
     string input;
     float compare = INT_MIN;
