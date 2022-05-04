@@ -220,7 +220,7 @@ int main()
         case '5':
             for (int i = 0; i < plantFnum; i++)
             {
-                if ("red" == plantF[i]->returnColor() || "Red" == plantF[i]->returnColor())
+                if (plantF[i]->returnColor() =="red" || plantF[i]->returnColor()=="Red")
                 {
                     input = plantF[i]->returnName();
                     flowers[flowerNum++].getName(input);
