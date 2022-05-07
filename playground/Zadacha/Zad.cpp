@@ -38,7 +38,6 @@ int main()
     int partiNum = 0, nPartiNum = 0;
     bool check = true;
     string input;
-    string holder;
 
     cout << "\nPress s to stop\n";
 
@@ -75,21 +74,19 @@ int main()
             nPartiNum = 0;
             for (int i = 0; i < partiNum; i++)
             {
-                //holder = parti[i].returnEgn();
-                
-                    if (parti[i].checkFemale() && parti[i].returnPoints() >= 30)
-                    {
-                        newParti[nPartiNum++] = parti[i];
-                    }
-                
+
+                if (parti[i].checkFemale() && parti[i].returnPoints() >= 30)
+                {
+                    newParti[nPartiNum++] = parti[i];
+                }
             }
-            cout<<"\nDone!";
+            cout << "\nDone!";
             break;
         case '6':
             for (int i = 0; i < nPartiNum; i++)
             {
                 newParti[i].displayData();
-                cout<<endl;
+                cout << endl;
             }
             break;
         case 's':
