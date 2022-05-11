@@ -28,7 +28,7 @@ int main(){
         cout<<"\nSmt";
         cout<<"\nSmt";
         cout<<"\nSmt";
-        cout<<"-->";
+        cout<<"\n-->";
         getline(cin, input);
 
         switch(input[0]){
