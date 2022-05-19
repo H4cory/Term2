@@ -51,7 +51,7 @@ void displayAll(AbstractPlants *Plants[], int plantNum)
     }
 }
 
-void displayTall(AbstractPlants *Plants[], int plantNum)
+void displayExpensive(AbstractPlants *Plants[], int plantNum)
 {
     for (int i = 0; i < plantNum; i++)
     {
@@ -118,7 +118,7 @@ int main()
 
             break;
         case '3':
-            displayTall(Plants, plantNum);
+            displayExpensive(Plants, plantNum);
 
             break;
         case '4':
