@@ -17,6 +17,7 @@ zaplashtane pod 20 lv.
 #include <string>
 using namespace std;
 
+// class Workers
 class Workers
 {
 private:
@@ -85,6 +86,7 @@ public:
     }
 };
 
+// new class under payed woman
 class UnderPayedWoman
 {
 private:
@@ -149,11 +151,12 @@ int main()
 
         switch (input[0])
         {
+            // add a worker
         case '1':
             persone[numP++].getData();
 
             break;
-
+            // display all workers
         case '2':;
 
             for (int i = 0; i < numP; i++)
@@ -164,7 +167,7 @@ int main()
             }
 
             break;
-
+            // display name of workers over 400lv
         case '3':
             for (int i = 0; i < numP; i++)
             {
@@ -172,7 +175,7 @@ int main()
             }
 
             break;
-
+            // save ifno of under payed woman
         case '4':
             for (int i = 0; i < numP; i++)
             {
@@ -184,7 +187,7 @@ int main()
             }
             cout << "\nDONE!";
             break;
-
+            // display under payed woman
         case '5':
             for (int i = 0; i < numW; i++)
             {
