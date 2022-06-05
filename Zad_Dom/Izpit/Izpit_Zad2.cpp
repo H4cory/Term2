@@ -48,9 +48,12 @@ public:
         cout << "\nName: " << name;
         cout << "\nPrice: " << price;
     }
-    string reurnName()
+    bool reurnName(string input)
     {
-        return name;
+        if(name == input)
+        return true;
+        else 
+        return false;
     }
 };
 
@@ -182,7 +185,7 @@ int main()
             getline(cin, input);
             for (int i = 0; i < FurC; i++)
             {
-                if (Fur[i]->reurnName() == input)
+                if (Fur[i]->reurnName(input))
                 {
                     for (int j = i; j < FurC; j++)
                     {
