@@ -39,7 +39,7 @@ int main()
         while (!textFile.eof())
         {
             getline(textFile,input);
-            cout<<input;
+            cout<<input<<endl;
         }
     }
     return 0;
