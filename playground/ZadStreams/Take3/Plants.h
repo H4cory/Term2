@@ -13,26 +13,22 @@ private:
     string name;
     string price;
     string units;
-    fstream textFile;
 
 public:
     Plants()
     {
     }
 
-    // constructor for getting data from file
-    Plants(string input)
+    // getting data from file
+    void getDataFromFile(string input, int &i, int &count)
     {
-
-        int i = 0;
-        int count = 0;
         getData(input, i, count, name);
         getData(input, i, count, price);
         getData(input, i, count, units);
     }
 
     // gets individual data
-    void getData(string input, int &i, int &count, string &answer)
+    void getData(string &input, int &i, int &count, string &answer)
     {
         while (true)
         {
@@ -47,23 +43,17 @@ public:
                 i++;
         }
     }
+
     // Gets Data
+    void getData(string nName, string nPrice, string nUnits)
+    {
+        name = nName;
+        price = nPrice;
+        units = nUnits;
+    }
+
     void getData()
     {
-        cout << "\nName: ";
-        getline(cin, name);
-        cout << "Price: ";
-        getline(cin, price);
-        cout << "Units: ";
-        getline(cin, units);
-        textFile.open("saveData.txt", ios::app);
-        if (textFile.is_open())
-        {
-            textFile << name << "$" << price << "$" << units << "$\n";
-            textFile.close();
-        }
-        else
-            cout << "\nFile couldn't open!";
     }
     // Displays Data
     void displayData()

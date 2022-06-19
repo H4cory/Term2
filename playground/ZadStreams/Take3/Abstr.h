@@ -11,6 +11,5 @@ public:
     virtual void getData() = 0;
     virtual void displayData() = 0;
     virtual bool checkName(string) = 0;
-
     virtual string saveData() = 0;
 };

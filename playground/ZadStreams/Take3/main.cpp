@@ -12,9 +12,29 @@ Da se sastavi programa, koyato izpalnyava ot menyu slednite operatsii:
 #include <string>
 #include <array>
 #include <fstream>
-#include "Plants.h"
-
+#include "Trees.h"
+#include "Flowers.h"
 using namespace std;
+
+// gets data
+void get(int &pCount, Abstr *plant[])
+{
+    string input;
+    cout << "\nEnter: \n1.Trees\n2.Flowers\n-->";
+    getline(cin, input);
+    if (input[0] == '1')
+    {
+        plant[pCount] = new Trees;
+        plant[pCount++]->getData();
+    }
+    else if (input[0] == '2')
+    {
+        plant[pCount] = new Flowers;
+        plant[pCount++]->getData();
+    }
+    else
+        cout << "\nWrong input!\n";
+}
 
 // displays data
 void display(int pCount, Abstr *plant[])
@@ -24,12 +44,6 @@ void display(int pCount, Abstr *plant[])
         plant[i]->displayData();
         cout << endl;
     }
-}
-// gets data
-void get(int &pCount, Abstr *plant[])
-{
-    plant[pCount] = new Plants();
-    plant[pCount++]->getData();
 }
 
 // deletes object from class
@@ -74,6 +88,7 @@ void getSavedData(int &pCount, Abstr *plant[])
 {
     string input;
     fstream textFile;
+    bool checkFile = false;
 
     // checks if file exists
     textFile.open("saveData.txt", ios::app);
@@ -92,7 +107,18 @@ void getSavedData(int &pCount, Abstr *plant[])
             }
             else
             {
-                plant[pCount++] = new Plants(input);
+                switch (input[0])
+                {
+                case 't':
+                    plant[pCount++] = new Trees(input);
+                    break;
+                case 'f':
+                    plant[pCount++] = new Flowers(input);
+                    break;
+                default:
+                    cout << "\nData for item is broken, file would be reset after reading all!\n";
+                    checkFile = true;
+                }
             }
         }
         textFile.close();
@@ -100,6 +126,11 @@ void getSavedData(int &pCount, Abstr *plant[])
     else
     {
         cout << "\nFile couldn't open!";
+    }
+
+    if (checkFile)
+    {
+        saveData(pCount, plant);
     }
 }
 
@@ -110,8 +141,7 @@ int main()
     Abstr *plant[50];
     int pCount = 0;
     string input, holder;
-    array<bool, 10> check;
-    check.fill(true);
+    bool check = true;
 
     // Gets saved data
     getSavedData(pCount, plant);
@@ -119,7 +149,7 @@ int main()
     // menu
     cout << "\nPress s to stop\n";
 
-    while (check[0])
+    while (check)
     {
         cout << "\n<----MENU---->\n";
         cout << "\n1.Get Data";
@@ -161,7 +191,7 @@ int main()
 
             break;
         case 's':
-            check[0] = false;
+            check = false;
 
             break;
         default:
