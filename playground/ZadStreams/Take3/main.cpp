@@ -12,108 +12,68 @@ Da se sastavi programa, koyato izpalnyava ot menyu slednite operatsii:
 #include <string>
 #include <array>
 #include <fstream>
+#include "Plants.h"
 
 using namespace std;
 
-class Abstr
+// displays data
+void display(int pCount, Abstr *plant[])
 {
-private:
-public:
-    virtual void getData() = 0;
-    virtual void displayData() = 0;
-    virtual bool checkName(string) = 0;
-
-    virtual string saveData() = 0;
-};
-
-class Plants : public Abstr
+    for (int i = 0; i < pCount; i++)
+    {
+        plant[i]->displayData();
+        cout << endl;
+    }
+}
+// gets data
+void get(int &pCount, Abstr *plant[])
 {
-private:
-    string name;
-    string price;
-    string units;
-    fstream textFile;
+    plant[pCount] = new Plants();
+    plant[pCount++]->getData();
+}
 
-public:
-    Plants()
+// deletes object from class
+void deleteFromClass(int &pCount, Abstr *plant[], string input)
+{
+    for (int i = 0; i < pCount; i++)
     {
-    }
-
-    Plants(string input)
-    {
-        // gets data from file
-        int i = 0;
-        int count = 0;
-        getData(input, i, count, name);
-        getData(input, i, count, price);
-        getData(input, i, count, units);
-    }
-
-    void getData(string input, int &i, int &count, string &answer)
-    {
-        while (true)
+        if (plant[i]->checkName(input))
         {
-            if (input[i] == '$')
+            for (int j = i; j < pCount; j++)
             {
-                answer = input.substr(count, i - count);
-                count = i + 1;
-                i++;
-                break;
+                plant[j] = plant[j + 1];
             }
-            else
-                i++;
+            pCount--;
         }
     }
-    void getData()
-    {
-        cout << "\nName: ";
-        getline(cin, name);
-        cout << "Price: ";
-        getline(cin, price);
-        cout << "Units: ";
-        getline(cin, units);
-        textFile.open("saveData.txt", ios::app);
-        if (textFile.is_open())
-        {
-            textFile << name << "$" << price << "$" << units << "$\n";
-            textFile.close();
-        }
-        else
-            cout << "\nFile couldn't open!";
-    }
+}
 
-    void displayData()
-    {
-        cout << "\nName: " << name;
-        cout << "\nPrice: " << price;
-        cout << "\nUnits: " << units;
-    }
-    bool checkName(string input)
-    {
-        if (input == name)
-        {
-            return true;
-        }
-        else
-            return false;
-    }
-
-    string saveData()
-    {
-        return name + "$" + price + "$" + units + "$\n";
-    }
-};
-
-int main()
+// saves all data from class
+void saveData(int &pCount, Abstr *plant[])
 {
-
     fstream textFile;
+    textFile.open("saveData.txt", ios::out | ios::trunc);
+    if (textFile.is_open())
+    {
+        for (int i = 0; i < pCount; i++)
+        {
 
-    Abstr *plant[50];
-    int pCount = 0;
-    string input, holder;
-    array<bool, 10> check;
-    check.fill(true);
+            textFile << plant[i]->saveData();
+        }
+        textFile.close();
+    }
+    else
+    {
+        cout << "\nFile couldn't open!";
+    }
+    cout << "\nDONE!\n";
+}
+
+// gets data from file
+void getSavedData(int &pCount, Abstr *plant[])
+{
+    string input;
+    fstream textFile;
 
     // checks if file exists
     textFile.open("saveData.txt", ios::app);
@@ -131,12 +91,30 @@ int main()
                 break;
             }
             else
+            {
                 plant[pCount++] = new Plants(input);
+            }
         }
         textFile.close();
     }
     else
+    {
         cout << "\nFile couldn't open!";
+    }
+}
+
+// MAIN
+int main()
+{
+
+    Abstr *plant[50];
+    int pCount = 0;
+    string input, holder;
+    array<bool, 10> check;
+    check.fill(true);
+
+    // Gets saved data
+    getSavedData(pCount, plant);
 
     // menu
     cout << "\nPress s to stop\n";
@@ -153,50 +131,31 @@ int main()
 
         switch (input[0])
         {
+            // Creates a new object and gets data
         case '1':
-            plant[pCount] = new Plants();
-            plant[pCount++]->getData();
+
+            get(pCount, plant);
             break;
 
+            // displays all data
         case '2':
-            for (int i = 0; i < pCount; i++)
-            {
-                plant[i]->displayData();
-                cout << endl;
-            }
+
+            display(pCount, plant);
 
             break;
+
+            // deletes an object
         case '3':
             cout << "\nName of plant: ";
             getline(cin, input);
 
-            // delete in class
-            for (int i = 0; i < pCount; i++)
-            {
-                if (plant[i]->checkName(input))
-                {
-                    for (int j = i; j < pCount; j++)
-                    {
-                        plant[j] = plant[j + 1];
-                    }
-                    pCount--;
-                }
-            }
+            // deletes object in class
+            deleteFromClass(pCount, plant, input);
 
             // rewrite file
-            textFile.open("saveData.txt", ios::out | ios::trunc);
-            if (textFile.is_open())
-            {
-                for (int i = 0; i < pCount; i++)
-                {
+            saveData(pCount, plant);
 
-                    textFile << plant[i]->saveData();
-                }
-                textFile.close();
-            }
-            else
-                cout << "\nFile couldn't open!";
-            cout << "\nDONE!";
+            display(pCount, plant);
             break;
         case '4':
 
