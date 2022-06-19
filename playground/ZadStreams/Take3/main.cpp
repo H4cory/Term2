@@ -10,7 +10,6 @@ Da se sastavi programa, koyato izpalnyava ot menyu slednite operatsii:
 
 #include <iostream>
 #include <string>
-#include <array>
 #include <fstream>
 #include "Trees.h"
 #include "Flowers.h"
