@@ -12,4 +12,6 @@ public:
     virtual void displayData() = 0;
     virtual bool checkName(string) = 0;
     virtual string saveData() = 0;
+    virtual bool isCon() = 0;
+    virtual bool checkPr() = 0;
 };

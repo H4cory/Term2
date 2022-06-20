@@ -30,10 +30,29 @@ public:
     {
         fstream textFile;
         string name, price, units;
+        bool WI = false;
         cout << "\nName:  ";
         getline(cin, name);
         cout << "Price: ";
         getline(cin, price);
+        while (true)
+        {
+            WI = false;
+            for (int i = 0; i < price.length(); i++)
+            {
+                if (isalpha(price[i]))
+                {
+                    WI = true;
+                }
+            }
+            if (WI)
+            {
+                cout << "\nYou have entered letters!!!\nPlease enter a new price.\nPrice: ";
+                getline(cin, price);
+            }
+            else
+                break;
+        }
         cout << "Units: ";
         getline(cin, units);
         cout << "Color: ";
@@ -64,5 +83,11 @@ public:
     string saveData()
     {
         return "f" + color + "$" + Plants::saveData();
+    }
+
+    // returns false for Coniferous trees
+    bool isCon()
+    {
+        return false;
     }
 };

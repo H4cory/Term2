@@ -1,5 +1,5 @@
-tc$c$c$c$c$
-td$d$d$d$d$
-te$e$e$e$e$
-ff$f$f$f$
-fg$g$g$g$
+t2$Coniferous$Yavor$10$2$
+t5$Deciduous$Breza$9$4$
+fred$Roza$3$3$
+flilac$Lilac$6$3$
+t4$Coniferous$Dyb$7$23$

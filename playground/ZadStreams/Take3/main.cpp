@@ -38,16 +38,22 @@ void get(int &pCount, Abstr *plant[])
 // displays data
 void display(int pCount, Abstr *plant[])
 {
-    for (int i = 0; i < pCount; i++)
+    if (pCount > 0)
     {
-        plant[i]->displayData();
-        cout << endl;
+        for (int i = 0; i < pCount; i++)
+        {
+            plant[i]->displayData();
+            cout << endl;
+        }
     }
+    else
+        cout << "\nThere is nothing to display!\n";
 }
 
 // deletes object from class
-void deleteFromClass(int &pCount, Abstr *plant[], string input)
+bool deleteFromClass(int &pCount, Abstr *plant[], string input)
 {
+    int match = false;
     for (int i = 0; i < pCount; i++)
     {
         if (plant[i]->checkName(input))
@@ -57,8 +63,10 @@ void deleteFromClass(int &pCount, Abstr *plant[], string input)
                 plant[j] = plant[j + 1];
             }
             pCount--;
+            match = true;
         }
     }
+    return match;
 }
 
 // saves all data from class
@@ -133,12 +141,52 @@ void getSavedData(int &pCount, Abstr *plant[])
     }
 }
 
+// display all Coniferous trees
+void checkCon(int pCount, Abstr *plant[])
+{
+    bool mathc = false;
+    for (int i = 0; i < pCount; i++)
+    {
+        if (plant[i]->isCon())
+        {
+            plant[i]->displayData();
+            cout << endl;
+            mathc = true;
+        }
+    }
+    if (!mathc)
+    {
+        cout << "\nNo Coniferous trees found !\n";
+    }
+}
+
+// save plants under 10$
+void savePlants(int pCount, Abstr *plant[], int &nPCount, Abstr *nPlant[])
+{
+    nPCount = 0;
+    bool match = false;
+    for (int i = 0; i < pCount; i++)
+    {
+        if (plant[i]->checkPr())
+        {
+            nPlant[nPCount++] = plant[i];
+            match = true;
+        }
+    }
+    if (!match)
+    {
+        cout << "\nNo such plants were found!!\n";
+    }
+    else
+        cout << "\nDONE!\n";
+}
+
 // MAIN
 int main()
 {
 
-    Abstr *plant[50];
-    int pCount = 0;
+    Abstr *plant[50], *nPlant[50];
+    int pCount = 0, nPCount = 0;
     string input, holder;
     bool check = true;
 
@@ -154,7 +202,9 @@ int main()
         cout << "\n1.Get Data";
         cout << "\n2.Display";
         cout << "\n3.Delete plant";
-        cout << "\nSmt";
+        cout << "\n4.Display coniferous trees";
+        cout << "\n5.Save all plants under 10$";
+        cout << "\n6.Display all plants under 10$";
         cout << "\n-->";
         getline(cin, input);
 
@@ -179,15 +229,33 @@ int main()
             getline(cin, input);
 
             // deletes object in class
-            deleteFromClass(pCount, plant, input);
+            if (deleteFromClass(pCount, plant, input))
+            {
 
-            // rewrite file
-            saveData(pCount, plant);
+                // rewrite file
+                saveData(pCount, plant);
+                display(pCount, plant);
+            }
+            else
+            {
+                cout << "\nNo such plant was found!!\n";
+            }
 
-            display(pCount, plant);
             break;
         case '4':
 
+            // display all Coniferous trees
+            checkCon(pCount, plant);
+
+            break;
+        case '5':
+
+            // saves all plant under 10$
+            savePlants(pCount, plant, nPCount, nPlant);
+            break;
+        case '6':
+            // displays all plants under 10$
+            display(nPCount, nPlant);
             break;
         case 's':
             check = false;

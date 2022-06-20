@@ -79,4 +79,15 @@ public:
     {
         return name + "$" + price + "$" + units + "$\n";
     }
+
+    // cheks price
+    bool checkPr()
+    {
+        if (stoi(price) < 10)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
 };
