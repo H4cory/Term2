@@ -1,5 +1,3 @@
-t2$Coniferous$Yavor$10$2$
-t5$Deciduous$Breza$9$4$
-fred$Roza$3$3$
-flilac$Lilac$6$3$
-t4$Coniferous$Dyb$7$23$
+fRaindbow with the sahde of orange$George$69$1$
+tb$Tarikat$b$4$b$
+ta$Coniferous$a$2$a$
